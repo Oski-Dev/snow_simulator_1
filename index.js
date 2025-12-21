@@ -5,7 +5,7 @@ let angle;          // kąt wychylenia (radiany)
 let aVel = 0;       // prędkość kątowa
 let aAcc = 0;       // przyspieszenie kątowe
 let gravity = 1;    // stała g (skalowana dla pikseli)
-let bobRadius = 32; // promień boba
+let bobRadius = 22; // promień boba
 
 function setup() {
   createCanvas(window.innerWidth, window.innerHeight);
@@ -14,25 +14,34 @@ function setup() {
 
 function resetPendulum() {
   origin = createVector(width / 2, height / 2); // środek ekranu
-  len = 150; // długość linki
   
-  // oblicz kąt na podstawie wektora od zaczepiania do kursora
+  // oblicz wektor od zaczepiania do kursora
   let dx = mouseX - origin.x;
   let dy = mouseY - origin.y;
-  angle = atan2(dx, dy); // atan2(x, y) dla kąta względem osi pionowej
+  
+  // długość linki to większa ze składowych X i Y
+  let componentX = abs(dx);
+  let componentY = abs(dy);
+  len = max(componentX, componentY);
+  
+  // ogranicz długość: minimum 100, maksimum połowa wysokości okna
+  len = constrain(len, 100, height / 2);
+  
+  // kierunek to wektor między punktem zaczepiania a kursorem
+  angle = atan2(dx, dy);
   
   aVel = 0;
   aAcc = 0;
 }
 
 function draw() {
-  background(Math.abs(angle)*200);
+  background(200);
 
   // równanie ruchu dla prostego wahadła: aAcc = - (g / L) * sin(theta)
   aAcc = (-gravity / len) * sin(angle);
   aVel += aAcc;
   // lekkie tłumienie, żeby ruch nie trwał nieskończenie długo
-  aVel *= 0.995;
+  aVel *= 0.997;
   angle += aVel;
 
   // pozycja boba w kartezjańskich współrzędnych
