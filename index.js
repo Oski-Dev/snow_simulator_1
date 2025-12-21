@@ -22,7 +22,7 @@ function resetPendulum() {
 }
 
 function draw() {
-  background(angle*100);
+  background(Math.abs(angle)*200);
 
   // równanie ruchu dla prostego wahadła: aAcc = - (g / L) * sin(theta)
   aAcc = (-gravity / len) * sin(angle);
