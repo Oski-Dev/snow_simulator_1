@@ -13,7 +13,7 @@ let aVel2 = 0;      // prędkość kątowa drugiego
 let aAcc2 = 0;      // przyspieszenie kątowe drugiego
 
 let gravity = 1;    // stała g (skalowana dla pikseli)
-let bobRadius = 22; // promień boba
+let bobRadius = 13; // promień boba
 
 function setup() {
   createCanvas(window.innerWidth, window.innerHeight);
@@ -39,8 +39,10 @@ function resetPendulum() {
   angle1 = atan2(dx, dy);
   
   // drugie wahadło - takie same parametry co pierwsze
-  len2 = len1;
-  angle2 = angle1;
+  len2 = len1 *0.8; // drugie krótsze
+  angle2 = 0; // początkowo pionowo w dół
+  
+  // zeruj prędkości i przyspieszenia
   
   aVel1 = 0;
   aAcc1 = 0;
@@ -102,7 +104,7 @@ function draw() {
   fill(0);
   textSize(14);
   textAlign(LEFT, TOP);
-  text('Kliknij, aby ustawić wychylenie na pozycję kursora', 10, 10);
+  text('Kliknij, aby ustawić wychylenie na pozycję kursora :)', 10, 10);
 }
 
 function windowResized() {
