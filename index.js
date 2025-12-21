@@ -13,7 +13,7 @@ let aVel2 = 0;      // prędkość kątowa drugiego
 let aAcc2 = 0;      // przyspieszenie kątowe drugiego
 
 let gravity = 1;    // stała g (skalowana dla pikseli)
-let bobRadius = 13; // promień boba
+let bobRadius = 15; // promień boba
 
 function setup() {
   createCanvas(window.innerWidth, window.innerHeight);
