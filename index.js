@@ -1,5 +1,5 @@
 // Symulacja prostego wahadła w p5.js
-let origin;         // punkt mocowania (top-center)
+let origin;         // punkt mocowania (środek ekranu)
 let len;            // długość linki (piksele)
 let angle;          // kąt wychylenia (radiany)
 let aVel = 0;       // prędkość kątowa
@@ -13,10 +13,14 @@ function setup() {
 }
 
 function resetPendulum() {
-  origin = createVector(width / 2, 0);
-  len = height * 0.75; // drugi punkt w odległości ~3/4 wysokości okna
-  // losowe wychylenie w jedną stronę (0.2..1.0 rad)
-  angle = random(0.9, 3.1) * (random() < 0.5 ? -1 : 1);
+  origin = createVector(width / 2, height / 2); // środek ekranu
+  len = 150; // długość linki
+  
+  // oblicz kąt na podstawie wektora od zaczepiania do kursora
+  let dx = mouseX - origin.x;
+  let dy = mouseY - origin.y;
+  angle = atan2(dx, dy); // atan2(x, y) dla kąta względem osi pionowej
+  
   aVel = 0;
   aAcc = 0;
 }
@@ -51,19 +55,18 @@ function draw() {
   strokeWeight(1);
   circle(bobX, bobY, bobRadius * 2);
 
-  // instrukcja: kliknięcie resetuje wychylenie
+  // instrukcja: kliknięcie ustawia kąt wahadła na pozycję kursora
   noStroke();
   fill(0);
   textSize(14);
   textAlign(LEFT, TOP);
-  text('Kliknij, aby zresetować (losowe wychylenie)', 10, 10);
+  text('Kliknij, aby ustawić wychylenie na pozycję kursora', 10, 10);
 }
 
 function windowResized() {
   resizeCanvas(window.innerWidth, window.innerHeight);
-  // zaktualizuj długość i punkt mocowania po zmianie rozmiaru
-  origin = createVector(width / 2, 0);
-  len = height * 0.75;
+  // zaktualizuj punkt mocowania po zmianie rozmiaru
+  origin = createVector(width / 2, height / 2);
 }
 
 function mousePressed() {
