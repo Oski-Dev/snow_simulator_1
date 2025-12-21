@@ -16,7 +16,7 @@ function resetPendulum() {
   origin = createVector(width / 2, 0);
   len = height * 0.75; // drugi punkt w odległości ~3/4 wysokości okna
   // losowe wychylenie w jedną stronę (0.2..1.0 rad)
-  angle = random(0.2, 1.5) * (random() < 0.5 ? -1 : 1);
+  angle = random(0.9, 3.1) * (random() < 0.5 ? -1 : 1);
   aVel = 0;
   aAcc = 0;
 }
